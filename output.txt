@@ -1,0 +1,12 @@
+Token      |Lexeme 
+-----------|------
+constant   |22.00
+Identifier |t 
+Identifier |upper 
+Identifier |s 
+Operator   |<  
+Operator   |=  
+keyword    |while
+Symbol     |( 
+Symbol     |) 
+Symbol     |; 
