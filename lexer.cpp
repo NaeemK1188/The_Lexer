@@ -65,9 +65,9 @@ int main()
 		//double number = stod(matchDig);
 		cout << "constant   |" << match[0]; // matchDig
 		searchStart = match.suffix().first; // i++
+		cout << endl;
 	}
 
-	cout << endl;
 
 	searchStart = fileContents.cbegin(); // reset starting point to th beginning of the fileContents string
 
