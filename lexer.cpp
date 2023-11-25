@@ -55,7 +55,7 @@ int main()
 	// the pattern in ope should match the one in input in i++ ) where there is a space after i++
 	// so we add \\++ | here we add space after ++
 	// regex reads from left to right so if the small pattern match the larg one after | is ignored
-	string regexDig = "\\d+\\.\\d+";
+	string regexDig = "\\d+";
 	regex regexDigit(regexDig);
 	regex regexIdentifier(regexId);
 	regex regexOper(ope);
