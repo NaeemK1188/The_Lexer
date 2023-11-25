@@ -5,6 +5,6 @@ Project Description:
     It reads of the input of a file, in this case the "input_scode.txt" and outputs a table cointaining the tokens and its lexemes, in this case "output.txt". 
 
 Lexer members:
-    Gustavo Couto Vanin
-    Naeem Khayat Albirkdar
+    Gustavo Couto Vanin, 
+    Naeem Khayat Albirkdar, and
     Sebastian Rivera
