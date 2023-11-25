@@ -7,23 +7,25 @@
 #include <fstream>
 using namespace std;
 
-string readtext(const string& filename) {
+string readtext(const string& filename) 
+{
     ifstream file(filename);
     string textFile;
 
-    if (file.is_open()) {
+    if (file.is_open()) 
+	{
         // Read the entire file into the string
         file.seekg(0, ios::end);
         textFile.reserve(file.tellg());
         file.seekg(0, ios::beg);
 
-        textFile.assign(
-            (istreambuf_iterator<char>(file)),
-            istreambuf_iterator<char>()
-        );
+        textFile.assign((istreambuf_iterator<char>(file)),istreambuf_iterator<char>());
 
         file.close();
-    } else {
+    } 
+	
+	else 
+	{
         cerr << "Unable to open file: " << filename << endl;
     }
 
@@ -42,13 +44,17 @@ int main()
 	cout<< "Token      |Lexeme " << endl;
 	cout<< "-----------|------" << endl;
 
-
+	// not reading whole word i++ only i or i and + probably something worng with the pattern
 	string filename = "input_scode.txt";
-  string fileContents = readtext(filename);
-	string keywords[] = { "cin", "cout", "while", "if", "else", "for", "int", "float", "endl" };
-	string regexId = "\\b(?!(cin|cout|while|for|if|else|int|float|endl)\\b)[a-zA-Z_]\\w*\\b";
-	string symbol = "[{}();,]| >> | <<";
-	string ope = "[\\+\\-*/=<>!%] | == | >= | <= | != ";
+    string fileContents = readtext(filename);
+	string keywords[] = { "cin", "cout", "while", "if", "else", "for", "int", "float", "endl", "double" };
+	string regexId = "\\b(?!(cin|cout|while|for|if|else|int|float|endl|double)\\b)[a-zA-Z_]\\w*\\b"; 
+	string symbol = "[{}();,]";
+	string ope = "\\++ |\\-- |\\<< |\\>> |[\\+\\-*/=<>!%] |== |>= |<= |!= "; // adding space before == like | == |,
+	// it adds a space before == in output
+	// the pattern in ope should match the one in input in i++ ) where there is a space after i++
+	// so we add \\++ | here we add space after ++
+	// regex reads from left to right so if the small pattern match the larg one after | is ignored
 	string regexDig = "\\d+\\.\\d+";
 	regex regexDigit(regexDig);
 	regex regexIdentifier(regexId);
@@ -64,7 +70,8 @@ int main()
 		//string matchDig = match[0];
 		//double number = stod(matchDig);
 		cout << "constant   |" << match[0]; // matchDig
-		searchStart = match.suffix().first; // i++
+		// match[0] points to the entire matched substring
+		searchStart = match.suffix().first; // i++ and its like \n or newline
 		cout << endl;
 	}
 
@@ -77,7 +84,7 @@ int main()
 
 
 
-		cout << "Identifier |" << match[0] << " ";
+		cout << "Identifier |" << match[0];
 		searchStart = match.suffix().first;
 		cout << endl;
 
@@ -87,11 +94,25 @@ int main()
 
 	while (regex_search(searchStart, fileContents.cend(), match, regexOper))
 	{
+		if (match[0] != ' ')
+		{
+			//cout << "space  |"<< match[0]; compiler reads white space 
+			//searchStart = match.suffix().first;
+			cout << "Operator   |" << match[0];
+			//searchStart = match.suffix().first;
+			cout << endl;
 
-		cout << "Operator   |" << match[0] << " ";
+		}
 
-		searchStart = match.suffix().first;
-		cout << endl;
+		searchStart = match.suffix().first; // like i++ keeps
+		
+
+		//else
+		//{
+			//cout << "Operator   |" << match[0];
+			//searchStart = match.suffix().first;
+		//}
+		//cout << endl;
 	}
 
 
@@ -108,7 +129,7 @@ int main()
 	while (regex_search(searchStart, fileContents.cend(), match, regexSy))
 	{
 
-		cout << "Symbol     |" << match[0] << " ";
+		cout << "Symbol     |" << match[0];
 
 		searchStart = match.suffix().first;
 		cout << endl;
