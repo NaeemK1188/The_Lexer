@@ -6,5 +6,5 @@ Project Description:
 
 Lexer members:
     Gustavo Couto Vanin
-    Noah Albirkdar
+    Naeem Khayat Albirkdar
     Sebastian Rivera
